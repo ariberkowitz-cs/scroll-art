@@ -1,4 +1,4 @@
-import java.util.random.*; // for if a coconut falls
+import java.util.Random; // for if a coconut falls
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -6,9 +6,14 @@ public class Main {
         int width = 100;
         int height = 25;
         img = new char[height][width];
-        int num_of_prints = 200; // switch to a larger number for a longer change
+        int num_of_prints = 520; // switch to a larger number for a longer change
         
         int wave_pos = 0; 
+        int bird_dir = 1;
+        int bird_pos = 10;
+        Random rand = new Random();
+        boolean falling_coco = false; // this will become true 1/100 of the time
+        int coco_y = 10;
 
         char[][] sun = new char[10][20]; // creates arrays for moving objects
         for (int j=0; j<10;j++) {
@@ -16,8 +21,8 @@ public class Main {
                 sun[j][k] = ' ';}
         }
 
-        char[][] coconut = new char[14][5];
-        for (int j=0; j<14;j++) {
+        char[][] coconut = new char[3][5];
+        for (int j=0; j<3;j++) {
             for (int k=0; k<5;k++) {
                 coconut[j][k] = ' ';}
         }
@@ -28,36 +33,107 @@ public class Main {
                 wave[j][k] = ' ';}
         }
 
-        char[][] birdie = new char[50][8];
+        char[][] birdie = new char[4][15];
+        for (int j=0; j<4;j++) {
+            for (int k=0; k<15;k++) {
+                birdie[j][k] = ' ';}
+        }
         
         img = create_initial_image(img, width, height, sun, coconut, wave, birdie); // makes the initial image
 
         for (int i = 0; i<num_of_prints;i++) { // runs for as many times as you choose
-            birdie = birdie(birdie); // alters the entire image for these 4 methods
-            wave = wave(wave);
-            sun = sun(sun);
-            coconut = coconut(coconut);
+
+            if (!falling_coco && rand.nextInt(100) == 67) { // must not alr be falling + 1/100 chance
+                falling_coco = true;
+                coco_y = 13; // puts it back in place
+
+            }   
             
             for (int j=0; j<10;j++) { // maps sun onto image
-                for (int k=0; k<20;k++) {
-                    img[j][k] = sun[j][k];}
+                for (int k=0; k<20;k++) { // here are the beam points
+                    boolean beam_pixel = ((j==2 && k>=15 && k<=18) || (j==5 && k>=15 && k<=18) || ((j==7 || j==8) && (k==4 || k==10)));
+
+                    if(beam_pixel) {
+                        if ((i/4)%2==0) { // every 4 frames it flickers
+                            img[j][k] = sun[j][k];
+                        }
+                        else {
+                            img[j][k] = ' ';
+                        }
+                    }
+                    else
+                    {img[j][k] = sun[j][k];}} // the rest of the sun stays the same
                 }
-            
-            for (int j=0; j<14;j++) { // maps coconut onto image
-                for (int k=0; k<5;k++) {
-                    img[10+j][70+k] = coconut[j][k];}
-                }
-            
-            for (int j=0; j<10;j++) {
+
+            for (int j=0; j<10;j++) { // maps wave 
                 for (int k=0; k<17;k++) {
-                    if (k+wave_pos>60 || k+wave_pos<56) {
+                    if (k+wave_pos<56 || k+wave_pos>60) { // doesn't erase the tree
                     img[14+j][k+wave_pos] = wave[j][k];}
 
                 }
             }
+
+            for (int j=0; j<3;j++) { // maps coconut onto image
+                for (int k=0; k<5;k++) {
+                    img[10+j][70+k] = coconut[j][k];}
+                }
+
+
+            
+
+            if (falling_coco) {
+                for (int j=0; j<3;j++) { // now the coconut falls randomly
+                    for (int k =0; k<5;k++) {
+                    int old_row = coco_y+j;
+                    int old_col = 70 + k;
+
+                    if (old_row >= 0 && old_row < height  && old_col>=0 && old_col<width) {
+                            img[old_row][old_col] = ' ';
+                        }
+                    }
+                }
+
+                coco_y++; // height decreases
+
+                if (coco_y+3>height) { // stops falling at the bottom
+                    falling_coco = false;
+                } else {
+
+                for (int j=0; j<3;j++) { // now the coconut falls randomly
+                    for (int k = 0; k<5;k++) {
+                    int row = coco_y+j;
+                    int col = 70 + k;
+
+                    if (row >= 0 && row < height  && col>=0 && col<width) {
+                        if (coconut[j][k] != ' ') {
+                            img[row][col] = coconut[j][k];
+                        }
+                    }
+                }}}
+
+                
+            }
+            
+            
+            
+            for (int j=0;j<5;j++) {
+                for (int k=20;k<width;k++) {
+                    img[j][k] = ' ';
+                }
+            }
+
+            for (int j=0;j<4;j++) {
+                for (int k=0;k<15;k++) {
+                    img[1+j][25+k+bird_pos] = birdie[j][k];
+                }
+            }
+
             wave_pos++;
+            bird_pos += bird_dir;
+            if (bird_pos > 55 || bird_pos<1) {bird_dir*=-1;} 
             if (wave_pos>width-17) {wave_pos=0;}
 
+            img = add_initials(img, width, height);
             print_img(img, width, height); // prints the final image
 
             for (int k=0;k<2;k++) {System.out.println("");}
@@ -390,6 +466,13 @@ public class Main {
         img[23][58] = 'x';
         img[23][59] = 'x';
         img[23][60] = 'x';
+
+        birdie[2][0] = '/';
+        birdie[1][1] = '_';
+        birdie[2][2] = '\\';
+        birdie[2][3] = '/';
+        birdie[1][4] = '_';
+        birdie[2][5] = '\\';
         
         
         
@@ -409,20 +492,10 @@ public class Main {
         
     }
 
-    public static char[][] birdie(char[][] birdie) {
-        return birdie;
-    }
+    public static char[][] add_initials(char[][] img, int width, int height) {
+        img[height-1][width-2] = 'A';
+        img[height-1][width-1] = 'B';
 
-    public static char[][] wave(char[][] wave) {
-        return wave;
+        return img;
     }
-   
-    public static char[][] sun(char[][] sun) {
-        return sun;
-    }
-
-    public static char[][] coconut(char[][] coconut) {
-        return coconut;
-    }
-
 }
