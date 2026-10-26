@@ -6,7 +6,9 @@ For conways game of life, the methuselah start I got from here:
 https://conwaylife.appspot.com/pattern/acorn 
 
 The pattern is called acorn. It was discovered by Charles Corderman.
-                                                                                                  
+      
+Beach:
+
 ![Beach terminal screenshot](beach.png)
 
 
