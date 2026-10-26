@@ -24,21 +24,21 @@ public class Main {
 
         char[][] coconut = new char[3][5];
         for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 5; k++) {
+            for (int k = 0; k < 5; k++) { // empty array for coconut
                 coconut[j][k] = ' ';
             }
         }
 
         char[][] wave = new char[10][17];
         for (int j = 0; j < 10; j++) {
-            for (int k = 0; k < 17; k++) {
+            for (int k = 0; k < 17; k++) { // empty array for wave
                 wave[j][k] = ' ';
             }
         }
 
         char[][] birdie = new char[4][15];
         for (int j = 0; j < 4; j++) {
-            for (int k = 0; k < 15; k++) {
+            for (int k = 0; k < 15; k++) { // empty array for birdie
                 birdie[j][k] = ' ';
             }
         }
@@ -133,10 +133,10 @@ public class Main {
 
             wave_pos++;
             bird_pos += bird_dir;
-            if (bird_pos > 55 || bird_pos < 1) {
+            if (bird_pos > 55 || bird_pos < 1) { // bird turns around when too left/right
                 bird_dir *= -1;
             }
-            if (wave_pos > width - 17) {
+            if (wave_pos > width - 17) { // wave goes all the way to the end
                 wave_pos = 0;
             }
 
@@ -220,7 +220,7 @@ public class Main {
         coconut[2][3] = '.';
         coconut[2][4] = '.';
 
-        wave[9][0] = 'O';
+        wave[9][0] = 'O'; // wave
         wave[9][1] = 'O';
         wave[9][2] = 'O';
         wave[9][3] = 'O';
@@ -308,7 +308,7 @@ public class Main {
         wave[1][7] = 'O';
         wave[1][8] = 'O';
 
-        img[7][52] = '~';
+        img[7][52] = '~'; // TREE
         img[7][53] = '~';
         img[7][54] = '~';
         img[7][55] = '~';
@@ -474,7 +474,7 @@ public class Main {
         img[23][59] = 'x';
         img[23][60] = 'x';
 
-        birdie[2][0] = '/';
+        birdie[2][0] = '/'; // bird
         birdie[1][1] = '_';
         birdie[2][2] = '\\';
         birdie[2][3] = '/';
@@ -487,14 +487,14 @@ public class Main {
     public static void print_img(char[][] img, int width, int height) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                System.out.print(img[i][j]);
+                System.out.print(img[i][j]); // nested for loop to print the whole image
             }
-            System.out.println("");
+            System.out.println(""); // extra line for spacing
         }
 
     }
 
-    public static char[][] add_initials(char[][] img, int width, int height) {
+    public static char[][] add_initials(char[][] img, int width, int height) { // adding initials ;)
         img[height - 1][width - 2] = 'A';
         img[height - 1][width - 1] = 'B';
 

@@ -1,84 +1,33 @@
-# scroll-art
+CITATION LEVELS
+--------------
+(It's all level one)
+I did all the art with my imagination
+For conways game of life, the methuselah start I got from here:
+https://conwaylife.appspot.com/pattern/acorn 
+
+The pattern is called acorn. It was discovered by Charles Corderman.
+
+Beach:
+
+            OOO                                    xxxxx                            OOO                      OOOOOOO                                    xxxxx                          OOOOOOO      
+            OOOOOOOOO                                   xxxxx                         OOOOOOOOO     
+           OO  OOOOOOO                                  xxxxx                        OO  OOOOOOO    
+          OO    OOOOOOO                                 xxxxx                       OO    OOOOOOO   
+          O     OOOOOOOO                                xxxxx                       O     OOOOOOOO  
+              OOOOOOOOOO                                xxxxx                           OOOOOOOOOO  
+           OOOOOOOOOOOOOO                               xxxxx                        OOOOOOOOOOOOOO 
+OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOxxxxxOOOOOOOOO     OOOOOOOOOOOOOOOOOOOOOOOOO
+                                                                                                  AB
+
+                                                                                                  
+![Beach terminal screenshot](beach.png)
 
 
-// Beach
-                                                                                                    
-  /---------\                                                                                       
- /           \ ----                 _  _                                                            
- |           |                     / \/ \                                                           
- |           |                                                                                      
- \           / ----                                                                                 
-  \---------/                                                                                       
-    |     |                                    ~~~~~~~~~~~~~~~~~~~~~~~                              
-    |     |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~                            
-                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                          
-                                                        xxxxx         .....                         
-                                                        xxxxx         .....                         
-                                                        xxxxx         .....                         
-                                                        xxxxx                                       
-                                                        xxxxx                                       
-      OOO                                               xxxxx                                       
-    OOOOOOO                                             xxxxx                                       
-   OOOOOOOOO                                            xxxxx                                       
-  OO  OOOOOOO                                           xxxxx                                       
- OO    OOOOOOO                                          xxxxx                                       
- O     OOOOOOOO                                         xxxxx                                       
-     OOOOOOOOOO                                         xxxxx                                       
-  OOOOOOOOOOOOOO                                        xxxxx                                       
-OOOOOOOOOOOOOOOOO                                       xxxxx                                      AB
+Game of Life:
+Starting generation -
+![Starting gen screenshot](acorn.png)
 
-// Conways game of life
-
-        O                                                                                                                                                                                               
-       OOO                                                                                                                                                                                              
-      OOOOO                                                                                                                                                                                             
-     O     O                                                                                                                                                                                            
-    OO     OO                                                                                                                                                                                           
-   OO       OO                                                                                                                                                                                          
-    O O   O O      O                                                                                                                                                                                    
-     OO   OO      O O                                                                                                                                                                                   
-                    OO                                                                                                                                                                                  
-                    OO                                                                                                                                                                                  
-                                                                                                                                                                                                        
-        OOO     OO                                                                                                                                                                                      
-                 OO                                                                                                                                                                                     
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                 OO                                                                                                                                                                                     
-               OOO                                                                                                                                                                                      
-                OO OO                                                                                                                                                                                   
-                O  OO                                                                                                                                                                                   
-                 OOO                                                                                                                                                                                    
-                  O                                                                                                                                                                                     
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
+Random generation -
+![Random gen screenshot](game_of_life_grinch.png)
 
 
-
-
-
-       OOO                                                                                                                                                                                              
-      O   O                                                                                                                                                                                             
-      O   O                                                                                                                                                                                             
-    OO OOO OO                                                                                                                                                                                           
-   O O     O O                                                                                                                                                                                          
-   O         O                                                                                                                                                                                          
-   OO O   O OO     O                                                                                                                                                                                    
-     OO   OO        OO                                                                                                                                                                                  
-                                                                                                                                                                                                        
-                    OO                                                                                                                                                                                  
-         O                                                                                                                                                                                              
-         O      OOO                                                                                                                                                                                     
-         O      OOO                                                                                                                                                                                     
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                                                                                                                                                                                                        
-                 OO                                                                                                                                                                                     
-               O   O                                                                                                                                                                                    
-                   OO                                                                                                                                                                                   
-                O                                                                                                                                                                                       
-                 O  O                                                                                                                                                                                   
-                 OOO                                                                                                                                                                                    
-                          

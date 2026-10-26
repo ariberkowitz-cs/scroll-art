@@ -3,7 +3,7 @@ public class game_of_life {
         int rows = 25;
         int cols = 80;
         char[][] conwaygamegrid = new char[rows][cols];
-        int printnum = 100;
+        int printnum = 100; // 100 generations
 
         for (int i = 0; i < rows; i++) { // creates grid of O cells
             for (int j = 0; j < cols; j++) {
@@ -25,7 +25,7 @@ public class game_of_life {
 
             conwaygamegrid = next_gen(conwaygamegrid, rows, cols);
 
-            Thread.sleep(200); // sleeps for 500 milliseconds
+            Thread.sleep(200); // sleeps for 200 milliseconds
         }
     }
 
@@ -33,7 +33,7 @@ public class game_of_life {
     public static void print_grid(char[][] grid, int rows, int cols) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.print(grid[i][j]);
+                System.out.print(grid[i][j]); // prints grid w/ nested for loop
             }
             System.out.println();
         }
@@ -46,10 +46,10 @@ public class game_of_life {
     // makes the next gen in a new char array so it doesn't mess up the current one
     // not this method calls the friends method
     public static char[][] next_gen(char[][] current_grid, int rows, int cols) {
-        char[][] next_gen = new char[rows][cols];
+        char[][] next_gen = new char[rows][cols]; // grid for next gen
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                int friends = num_of_friends(current_grid, i, j, rows, cols); // a new method
+                int friends = num_of_friends(current_grid, i, j, rows, cols); // calls method that returns int # friends
 
                 if (current_grid[i][j] == 'O') {
                     // SURVIVE IF 2 OR 3 NEIGHBORS
