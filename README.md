@@ -12,7 +12,7 @@ Beach:
 ![Beach terminal screenshot](beach.png)
 
 Wave:
-                 
+```                 
       OOO        
     OOOOOOO      
    OOOOOOOOO     
@@ -22,6 +22,7 @@ Wave:
      OOOOOOOOOO  
   OOOOOOOOOOOOOO 
 OOOOOOOOOOOOOOOOO
+```
 
 
 Game of Life:
