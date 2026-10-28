@@ -15,6 +15,47 @@ public class Main {
         boolean falling_coco = false; // this will become true 1/100 of the time
         int coco_y = 10;
 
+        // IMPORTED STRINGS
+        String turtleString = "   ___\n" +
+                           "  /@ @\\\n" +
+                           "  \\   /\n" +
+                           " __//|\\__\n" +
+                           "/ /\\||//\\ \\\n" +
+                           "\\/\\//|\\/\\/\n" +
+                           "   \\|//\n" +
+                           "    //\\\n" +
+                           "   -  -   VC";
+        AsciiArt turtle = new AsciiArt(turtleString);
+        char[][] turtleGrid = turtle.getImg();
+
+        String treeString = "          'Xx  xX*,\n" +
+                    "        ,*xXXx_xXx\n" +
+                    "          _xXXXXXxx*,\n" +
+                    "        ,*XXx@x@Xx\n" +
+                    "          X @|@@ `x\n" +
+                    "           '  ||    '\n" +
+                    "              ||\n" +
+                    "              ||\n" +
+                    "              ||\n" +
+                    "              ||\n" +
+                    "          /ssssssss.\n" +
+                    "    /sssssssSSSSssssssssss.\n" +
+                    "/sssssSSSSSSSSSSSSSSSssssssssssss. Dani";
+        AsciiArt tree = new AsciiArt(treeString);
+        char[][] treeGrid = tree.getImg();
+
+
+        String eagleString = " _\\|             |/_\n" +
+                        "_-  \\_   _/\"=_   _/  -_\n" +
+                        "_-_    `-'(   )`-'    _-\n" +
+                        " `=.__.=-(   )-=.__.='\n" +
+                        "         |/-\\|\n" +
+                        "cjr      Y   Y";
+        AsciiArt eagle = new AsciiArt(eagleString);
+        char[][] eagleGrid = eagle.getImg();        
+
+        
+
         char[][] sun = new char[10][20]; // creates arrays for moving objects
         for (int j = 0; j < 10; j++) {
             for (int k = 0; k < 20; k++) {
@@ -46,6 +87,12 @@ public class Main {
         img = create_initial_image(img, width, height, sun, coconut, wave, birdie); // makes the initial image
 
         for (int i = 0; i < num_of_prints; i++) { // runs for as many times as you choose
+
+            for (int j = 0; j < treeGrid.length; j++) {         // tree
+                for (int k = 0; k < treeGrid[j].length; k++) { 
+                img[10+j][k] = treeGrid[j][k];
+                }
+            } // NOTE IM DOING TREE FIRST SO ITS IN THE BACKGROUND
 
             if (!falling_coco && rand.nextInt(100) == 67) { // must not alr be falling + 1/100 chance
                 falling_coco = true;
@@ -140,12 +187,28 @@ public class Main {
                 wave_pos = 0;
             }
 
-            img = add_initials(img, width, height);
-            print_img(img, width, height); // prints the final image
+            
 
             for (int k = 0; k < 2; k++) {
                 System.out.println("");
+            }  
+
+            // inserting the foreground images (cited in readme)
+            for (int j = 0; j < turtleGrid.length; j++) {         // turtle
+                for (int k = 0; k < turtleGrid[j].length; k++) { 
+                img[15+j][40+k] = turtleGrid[j][k];
+                }
             }
+
+            for (int j = 0; j < eagleGrid.length; j++) {         // eagle
+                for (int k = 0; k < eagleGrid[j].length; k++) { 
+                img[4+j][70+k] = eagleGrid[j][k];
+                }
+            }
+
+            img = add_initials(img, width, height);
+            print_img(img, width, height, turtleGrid); // prints the final image
+
             Thread.sleep(50); // make this number smaller for quicker prints and vice versa
 
         }
@@ -484,7 +547,7 @@ public class Main {
         return img; // returns the completed image
     }
 
-    public static void print_img(char[][] img, int width, int height) {
+    public static void print_img(char[][] img, int width, int height, char[][] turtle) {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 System.out.print(img[i][j]); // nested for loop to print the whole image
@@ -501,3 +564,115 @@ public class Main {
         return img;
     }
 }
+
+ class AsciiArt {
+    char[][] img;
+    int height;
+    int width;
+
+    // constructor
+    public AsciiArt(char[][] img) {
+        this.img = img;
+        this.height = img.length;
+        this.width = img[0].length;
+    }
+
+    public AsciiArt(String art) {
+        this.processArt(art);
+    }
+
+    // generate new copy from original already processed
+    public AsciiArt(AsciiArt original) {
+        this.img = original.img;
+        this.height = original.height;
+        this.width = original.width;
+    }
+
+    private void processArt(String art) {
+        String[] lines = art.split("\n");
+        this.height = lines.length;
+        for (int i = 0; i < lines.length; i++) {
+            if (lines[i].length() > this.width) {
+                this.width = lines[i].length(); // max width!
+            }
+        }
+        this.img = new char[height][width];
+        for (int i = 0; i < lines.length; i++) {
+            for (int j = 0; j < lines[i].length(); j++) {
+                img[i][j] = lines[i].charAt(j);
+            }
+        }
+        // fill all zeroes with empty space
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (img[i][j] == 0) {
+                    img[i][j] = ' ';
+                } // will not allow overlap.
+            }
+        }
+    }
+
+    public void resize(int width2) {
+        // only resizing upwards for now
+        // add some columns, only worth repeating the pattern n times if possible.
+        if (width2 / width > 1) {
+            char[][] newImg = new char[height][width2];
+            for (int i = 0; i < height; i++) {
+                // copy existing pattern only if it fits
+                for (int j = 0; j < width2 && j / width < (width2 / width); j++) {
+                    newImg[i][j] = img[i][j % width]; // next to itself
+                }
+                // #3. fill the rest with empty space if the image is narrower than IMAGE_WIDTH
+                for (int j = (width2 / width) * width; j < width2; j++) {
+                    newImg[i][j] = ' ';
+                }
+            }
+            this.img = newImg;
+            this.width = width2;
+        }
+
+    }
+
+    char[][] getImg() {
+        return this.img;
+    }
+
+    AsciiArt switchRowsAndCols() {
+        char[][] newImg = new char[width][height];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                newImg[j][i] = img[i][j];
+            }
+        }
+        this.img = newImg;
+        int temp = this.width;
+        this.width = this.height;
+        this.height = temp;
+        return this;
+    }
+
+    static AsciiArt getWidestArt(AsciiArt[] asciis) {
+        if (asciis.length == 0) {
+            return null;
+        }
+        AsciiArt widest = asciis[0];
+        for (AsciiArt art : asciis) {
+            if (art.width > widest.width) {
+                widest = art;
+            }
+        }
+        return widest;
+    }
+
+    // really only for debugging
+    private void printArt() {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                System.out.print(this.img[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+}
+
